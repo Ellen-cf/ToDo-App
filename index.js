@@ -75,6 +75,31 @@ app.post('/criar', (requisicao,resposta)=>{
 
 })
 
+app.get('/completas', (requsicao,resposta) =>{
+    const sql =`
+        SELECT * FROM tarefas
+        WHERE completa = 1
+    `
+
+    conexao.query(sql, (erro, dados)=>{
+        if(erro){
+            return console.log(erro)
+        }
+
+        const tarefas = dados.map((dado)=>{
+            return{
+                id: dado.id,
+                descricao: dado.descricao,
+                completa: true
+            }
+        })
+
+        const quantidadeTarefas = tarefas.length
+
+        resposta.render('completas', {tarefas, quantidadeTarefas })
+    })
+})
+
 app.get('/ativas', (requsicao,resposta) =>{
     const sql =`
         SELECT * FROM tarefas
