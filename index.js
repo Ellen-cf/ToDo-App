@@ -39,6 +39,27 @@ app.post('/criar', (requisicao,resposta)=>{
 })
 
 app.get('/', (requisicao,resposta)=>{
+    //lendo banco de dados
+    const sql = 'SELECT * FROM tarefas'
+
+    conexao.query(sql,(erro, dados) =>{
+        if (erro){
+            return console.log(erro)
+        }
+
+        //convertendo informação de 0 e 1 que vem do mysql em true ou false para o js
+        //então a função map do js vai percorrer cada item da lista que recebemos do post
+        const tarefas = dados.map(()=>{
+            return{
+                id: dados.id,
+                descricao: dados.descricao,
+                completa: dados.completa === 0 ? false : true //if ternário
+            }
+        })
+
+        
+    })
+
     resposta.render('home')
 })
 
