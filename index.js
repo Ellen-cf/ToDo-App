@@ -67,7 +67,7 @@ app.post('/completar', (requisicao, resposta)=>{
     })
 })
 
-app.post('/descompletar', (requisicao, resposta)=>{
+app.post('/descompletar/', (requisicao, resposta)=>{
 
     const id = requisicao.body.id
     const sql = `
@@ -168,9 +168,9 @@ app.get('/', (requisicao,resposta)=>{
         //então a função map do js vai percorrer cada item da lista que recebemos do post
         const tarefas = dados.map((dado)=>{
             return{
-                id: dados.id,
-                descricao: dados.descricao,
-                completa: dados.completa === 0 ? false : true //if ternário
+                id: dado.id,
+                descricao: dado.descricao,
+                completa: dado.completa === 0 ? false : true //if ternário
             }
         })
 
@@ -178,7 +178,7 @@ app.get('/', (requisicao,resposta)=>{
             return tarefa.completa === false  && tarefa
         })
 
-        const quantidadeTarefasAtivas =  tarefasAtiva.length
+        const quantidadeTarefasAtivas = tarefasAtivas.length
 
         resposta.render('home', { tarefas, quantidadeTarefasAtivas })
     })    
@@ -189,7 +189,7 @@ const conexao = mysql.createConnection({
     user: "root",
     password: "root",
     database: "todoapp",
-    port: 3306 //ou 3307
+    port: 3307 //ou 3306
 })
 
 conexao.connect((erro) =>{
