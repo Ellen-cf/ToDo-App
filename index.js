@@ -166,7 +166,7 @@ app.get('/', (requisicao,resposta)=>{
 
         //convertendo informação de 0 e 1 que vem do mysql em true ou false para o js
         //então a função map do js vai percorrer cada item da lista que recebemos do post
-        const tarefas = dados.map(()=>{
+        const tarefas = dados.map((dado)=>{
             return{
                 id: dados.id,
                 descricao: dados.descricao,
